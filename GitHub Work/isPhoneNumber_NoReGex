@@ -1,0 +1,219 @@
+# def isPhoneNumber(text):
+#     if len(text) != 12:
+#         return False
+#     for i in range(0, 3):
+#         if not text[i].isdecimal():
+#             return False
+#     if text[3] != '-':
+#         return False
+#     for i in range(4, 7):
+#         if not text[i].isdecimal():
+#             return False
+#     if text[7] != '-':
+#         return False
+#     for i in range(8, 12):
+#         if not text[i].isdecimal():
+#             return False
+#     return True
+
+
+# print('415-555-4242 is a phone number:')
+# print(isPhoneNumber('415-555-4242'))
+# print('Moshi moshi is a phone number:')
+# print(isPhoneNumber('Moshi moshi'))
+
+# message = 'Call me at 415-555-1011 tomorrow. 415-555-9999 is my office.'
+
+# for i in range(len(message)):
+#     chunk = message[i:i+12]
+#     if isPhoneNumber(chunk):
+#         print('Phone number found: ' + chunk)
+#         print('Done')
+
+"-----------------------------------------------------------"
+"-----------------------------------------------------------"
+"-----------------------------------------------------------"
+"Regex version of isPhoneNumber()"
+
+import re
+
+# phoneNumRegex = re.compile(r'(\d\d\d)-(\d\d\d)-(\d\d\d\d)')
+# mo = ('Call me at 415-555-1011 tomorrow. 415-555-9999 is my office.')
+# for numbers in re.findall(r'\d\d\d-\d\d\d-\d\d\d\d', mo): # \d means any digit
+#     print('Phone numbers found: ' + numbers)
+
+"-----------------------------------------------------------"
+
+# groups = phoneNumRegex.search('My number is 415-555-4242.')
+# groups.group(1)
+# groups.group(2)
+# groups.group(3)
+# print(groups.group(1))
+# print(groups.group(2))
+# print(groups.group(3))
+
+"-----------------------------------------------------------"
+
+# heroRegex = re.compile (r'Batman|Tina Fey') # | means or
+
+# mo1 = heroRegex.search('Batman and Tina Fey.')
+# print(mo1.group()) # returns 'Batman' because it is the first match
+
+# mo2 = heroRegex.search('Tina Fey and Batman.')
+# print(mo2.group()) # returns 'Tina Fey' because it is the first match
+
+"-----------------------------------------------------------"
+
+# batRegex = re.compile(r'Bat(wo)?man') # the ? means the pattern is optional
+
+# mo1 = batRegex.search('The Adventures of Batman')
+# print(mo1.group()) # returns 'Batman'
+
+# mo2 = batRegex.search('The Adventures of Batwoman') 
+# print(mo2.group()) # returns 'Batwoman'
+
+'-----------------------------------------------------------'
+
+# batRegex = re.compile(r'Bat(wo)*man') # the * means the pattern can appear any number of times (including zero times)
+#                                       # If you want to match one or more times, use the + character
+# mo1 = batRegex.search('The Adventures of Batman')
+# print(mo1.group()) # returns 'Batman'
+# mo2 = batRegex.search('The Adventures of Batwoman')
+# print(mo2.group()) # returns 'Batwoman'
+# mo3 = batRegex.search('The Adventures of Batwowowowoman')
+# print(mo3.group()) # returns 'Batwowowowoman'
+
+"-----------------------------------------------------------"
+
+# What the "keys" Represent
+
+# \d - Any numeric digit from 0 to 9.
+# \D - Any character that is not a numeric digit from 0 to 9.
+# \w - Any letter, numeric digit, or the underscore character. (Think of this as matching “word” characters.)
+# \W - Any character that is not a letter, numeric digit, or the underscore character.
+# \s - Any space, tab, or newline character. (Think of this as matching “space” characters.)
+# \S - Any character that is not a space, tab, or newline.
+
+# • The ? matches zero or one of the preceding group.
+# • The * matches zero or more of the preceding group.
+# • The + matches one or more of the preceding group.
+# • The {n} matches exactly n of the preceding group.
+# • The {n,} matches n or more of the preceding group.
+# • The {,m} matches 0 to m of the preceding group.
+# • The {n,m} matches at least n and at most m of the preceding group.
+# • {n,m}? or *? or +? performs a nongreedy match of the preceding group.
+# • ^spam means the string must begin with spam.
+# • spam$ means the string must end with spam.
+# • The . matches any character, except newline characters.
+# • \d, \w, and \s match a digit, word, or space character, respectively.
+# • \D, \W, and \S match anything except a digit, word, or space character, respectively.
+# • [abc] matches any character between the brackets (such as a, b, or c).
+# • [^abc] matches any character that isn’t between the brackets.
+
+"-----------------------------------------------------------"
+
+# xmasRegex = re.compile(r'\d+\s\w+') # \d means any digit, \s means any space, \w means any word character
+# print(xmasRegex.findall('12 drummers, 11 pipers, 10 lords, 9 ladies, 8 maids, 7 swans, 6 geese, 5 rings, 4 birds, 3 hens, 2 doves, 1 partridge'))
+
+# vowelRegex = re.compile(r'[aeiouAEIOU]') # [aeiou] means any vowel, [a-zA-Z0-9] means any letter, number, or underscore
+# print(vowelRegex.findall('RoboCop eats baby food. BABY FOOD.'))
+
+# consonantRegex = re.compile(r'[^aeiouAEIOU]') # ^ means not
+# print(consonantRegex.findall('RoboCop eats baby food. BABY FOOD.'))
+
+"-----------------------------------------------------------"
+
+" Wild Card - YEEEEEEEEE HAAAWWWW"
+
+# atRegex = re.compile(r'.at') # . means any character except newline, also known as the wild card character
+# print(atRegex.findall('The cat in the hat sat on the flat mat.')) # returns ['cat', 'hat', 'sat', 'lat', 'mat']
+
+
+"-----------------------------------------------------------"
+
+
+# nameRegex = re.compile(r'First Name: (.*) Last Name: (.*)')
+# mo = nameRegex.search('First Name: Al Last Name: Sweigart')
+# print(mo.group(1)) # returns 'Al'
+# print(mo.group(2)) # returns 'Sweigart'
+
+
+"-----------------------------------------------------------"
+
+"Greedy VS. Non-Greedy"
+
+nongreedyRegex = re.compile(r'<.*?>')
+mo = nongreedyRegex.search('<To serve man> for dinner.>')
+print(mo.group()) # Only includes within the first set of <>
+
+greedyRegex = re.compile(r'<.*>')
+mo = greedyRegex.search('<To serve man> for dinner.>')
+print(mo.group()) # Includes everything between the first and last <>
+
+"-----------------------------------------------------------"
+noNewlineRegex = re.compile('.*') 
+# .* means any character except newline
+
+noNewlineRegex.search('Serve the public trust.\nProtect the innocent. \nUphold the law.').group() 
+# returns 'serve the public trust.'
+
+newlineRegex = re.compile('.*', re.DOTALL) 
+# re.DOTALL means it will match all characters including newlines
+
+newlineRegex.search('Serve the public trust.\nProtect the innocent. \nUphold the law.').group() 
+# returns 'serve the public trust.\nProtect the innocent.\nUphold the law.'
+
+
+"-----------------------------------------------------------"
+
+"Substituting Strings with the sub() Method"
+
+namesRegex = re.compile(r'Agent \w+')
+namesRegex.sub('CENSORED', 'Agent Alice gave the secret documents to Agent Bob.') 
+# returns 'CENSORED gave the secret documents to CENSORED.'
+
+"-----------------------------------------------------------"
+
+"Managing Complex Regexes"
+
+phoneRegex = re.compile(r'((\d{3}|\(\d{3}\))?(\s|-|\.)?\d{3}(\s|-|\.)\d{4}(\s*(ext|x|ext.)\s*\d{2,5})?)')
+
+"Is the same as: "
+
+phoneRegex = re.compile(r'''(
+    (\d{3}|\(\d{3}\))? # area code
+    (\s|-|\.)? # separator
+    \d{3} # first 3 digits
+    (\s|-|\.) # separator
+    \d{4} # last 4 digits
+    (\s*(ext|x|ext.)\s*\d{2,5})?  # extension
+    )''', re.VERBOSE)
+
+print(phoneRegex.findall("Call me at 415-555-1011 tomorrow. 415-555-9999 is my office.")) 
+# returns [('415-555-1011', '415', ' ', '555', '1011', ''), ('415-555-9999', '415', ' ', '555', '9999', '')]
+
+
+"-----------------------------------------------------------"
+"-----------------------------------------------------------"
+"-----------------------------------------------------------"
+"Speed test for isPhoneNumber() vs. regex"
+"THIS IS ONLY APPROPRIATE FOR SMALL STRINGS"
+
+# from timeit import timeit
+# import re
+
+# def find(string, text):
+#     if string.find(text) > -1:
+#         pass
+
+# def re_find(string, text):
+#     if re.match(text, string):
+#         pass
+
+# def best_find(string, text):
+#     if text in string:
+#        pass
+
+# print(timeit("find(string, text)", "from __main__ import find; string='lookforme'; text='look'")) 
+# print(timeit("re_find(string, text)", "from __main__ import re_find; string='lookforme'; text='look'"))
+# print(timeit("best_find(string, text)", "from __main__ import best_find; string='lookforme'; text='look'"))
